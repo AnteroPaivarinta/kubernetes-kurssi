@@ -57,7 +57,37 @@ app.get("/page", async (req, res) => {
         <h1>Hello World!</h1>
         <p>Tämä on yksinkertainen HTML-vastaus.</p>
         <img src="${dataURL}" alt="Satunnainen kuva">
-         <h1>Hei?</h1>
+          <ul id="todoList"></ul>
+        <form id="todoForm">
+          <input type="text" id="todoInput" maxlength="140" placeholder="Write a todo" />
+          <button type="submit">Add</button>
+        </form>
+
+         <script>
+          const list = document.getElementById('todoList');
+          const form = document.getElementById('todoForm');
+          const input = document.getElementById('todoInput');
+          const STORAGE_KEY = "todos";
+
+          // hae tallennetut todos
+          let todos = JSON.parse(localStorage.getItem(STORAGE_KEY)) || ["Buy groceries", "Call mom", "Finish project"];
+
+          function renderTodos() {
+            list.innerHTML = todos.map(t => "<li>" + t + "</li>").join("");
+          }
+
+          form.addEventListener('submit', (e) => {
+            e.preventDefault(); // estä lomakkeen lähetys
+            const value = input.value.trim();
+            if (value && value.length <= 140) {
+              todos.push(value);
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+              renderTodos();
+              input.value = "";
+            }
+          });
+          renderTodos();
+        </script>
       </body>
     </html>
   `);
