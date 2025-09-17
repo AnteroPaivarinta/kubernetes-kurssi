@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "file-type": "^21.0.0",
+    "path": "^0.12.7"
+  }
+}
