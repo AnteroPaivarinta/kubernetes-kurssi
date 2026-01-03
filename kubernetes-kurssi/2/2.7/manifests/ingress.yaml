@@ -1,0 +1,37 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ping-pong-app-ingress
+  namespace: exercises
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: log-output-app-svc
+            port:
+              number: 2345
+      - path: /pingpong
+        pathType: Prefix
+        backend:
+          service:
+            name: ping-pong-app-svc
+            port:
+              number: 2345
+      - path: /pings
+        pathType: Prefix
+        backend:
+          service:
+            name: ping-pong-app-svc
+            port:
+              number: 2345
+      - path: /hei
+        pathType: Prefix
+        backend:
+          service:
+            name: log-output-app-svc
+            port:
+              number: 2345
