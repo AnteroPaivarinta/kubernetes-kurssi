@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: exercises-config
+  namespace: project
+data:
+  MESSAGE: "hello123"
+  PORT: "3001"
+  DATABASE_PORT: "5432"
+  DATABASE_PASSWORD: "example"
+  DATABASE: "postgres"
+  DATABASE_HOST: "postgres-svc"
+  DATABASE_USER: "postgres"
+  information.txt: |
+    this text is from file
