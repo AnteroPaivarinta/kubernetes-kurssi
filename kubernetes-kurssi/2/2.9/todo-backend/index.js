@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.static("public"));
 app.use(cors());
 
-const wikipediaURL = "https://en.wikipedia.org/wiki/Special:Random";
+
 const client = new Client({
   host: process.env.POSTGRES_HOST,
   port: process.env.POSTGRES_PORT,
@@ -44,20 +44,6 @@ async function initDB() {
 
   console.log("Database initialized");
 }
-
-async function addRandomWiki() {
-  try {
-    const res = await fetch(wikipediaURL);
-    const wikipediaTodo = res.url;
-    const totalWikipediaTodo = `Read ${wikipediaTodo}` 
-    await client.query("INSERT INTO todos (item) VALUES ($1)", [totalWikipediaTodo]);
-  } catch (error) {
-    console.log("ERROR", error);
-  }
-}
-
-    
-setInterval(addRandomWiki, 10000);
 
 app.get('/todos', async (req, res) => {
   try {

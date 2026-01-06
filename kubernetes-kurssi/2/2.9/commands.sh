@@ -34,6 +34,12 @@ cd ..
 echo "-----------------------------------------------------------------------------------------------------------------------"
 pwd
 
+cd cron-job
+docker build --no-cache -t anteropaivarinta/cron-job:latest .
+docker push anteropaivarinta/cron-job:latest
+
+cd ..
+
 kubectl apply -f namespace.yaml
 kubectl apply -f manifests --namespace=project
 
