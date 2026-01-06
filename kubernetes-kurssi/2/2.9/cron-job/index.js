@@ -26,14 +26,15 @@ async function waitForDB() {
 }
 
 async function addRandomWiki() {
-    console.log("???")
   try {
     const res = await fetch(wikipediaURL);
     const wikipediaTodo = res.url;
     const totalWikipediaTodo = `Read ${wikipediaTodo}` 
     await client.query("INSERT INTO todos (item) VALUES ($1)", [totalWikipediaTodo]);
+    client.end();
   } catch (error) {
     console.log("ERROR", error);
+    process.exit(0);
   }
 }
 console.log("RUNNING");

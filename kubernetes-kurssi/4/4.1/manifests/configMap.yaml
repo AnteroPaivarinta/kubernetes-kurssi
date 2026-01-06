@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: exercises-config
+  namespace: exercises
+data:
+  MESSAGE: "hello123"
+  PORT: "3000"
+  PINGS_PATH: "http://ping-pong-app-svc:2345/pings"
+  information.txt: |
+    this text is from file
