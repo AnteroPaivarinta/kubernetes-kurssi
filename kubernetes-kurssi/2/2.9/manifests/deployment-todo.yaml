@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-app
+  template:
+    metadata:
+      labels:
+        app: todo-app
+    spec:
+      containers:
+        - name: todo-app-frontend
+          image: anteropaivarinta/todo-app-frontend:latest
+          env:
+          - name: VITE_URL_PAGE
+            value: "/page"
+          - name: VITE_URL_TODOS
+            value: "/todos"
+        - name: todo-app-restapi
+          image: anteropaivarinta/todo-app-restapi:latest
+        

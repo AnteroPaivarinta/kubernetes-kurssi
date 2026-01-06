@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-svc
+  namespace: project
+  labels:
+    app: postgres
+spec:
+  ports:
+  - port: 5432
+    name: web
+  clusterIP: None
+  selector:
+    app: postgres
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-ss
+spec:
+  serviceName: postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:13.0
+          ports:
+            - name: postgres
+              containerPort: 5432
+          env:
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: exercises-config          
+                key: DATABASE
+
+          - name: DATABASE_HOST 
+            valueFrom:
+              configMapKeyRef:
+                name: exercises-config          
+                key: DATABASE_HOST
+
+          - name: DATABASE_PORT 
+            valueFrom:
+              configMapKeyRef:
+                name: exercises-config          
+                key: DATABASE_PORT
+
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: exercises-config          
+                key: DATABASE_PASSWORD
+
+          - name: POSTGRES_USER
+            valueFrom:
+              configMapKeyRef:
+                name: exercises-config          
+                key: DATABASE_USER
+          
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: local-path
+        resources:
+          requests:
+            storage: 100Mi
