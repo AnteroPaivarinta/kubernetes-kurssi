@@ -1,0 +1,1 @@
+kubectl port-forward todo-app-7f6449994-xjbwc 3003:3000
