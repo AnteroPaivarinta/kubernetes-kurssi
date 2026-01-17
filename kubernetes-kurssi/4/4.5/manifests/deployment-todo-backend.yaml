@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-app-backend
+  template:
+    metadata:
+      labels:
+        app: todo-app-backend
+    spec:
+      containers:
+        - name: todo-app-backend
+          image: anteropaivarinta/todo-app-backend:latest
+          env:
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: exercises-config          
+                key: DATABASE
+
+          - name: POSTGRES_HOST 
+            valueFrom:
+              configMapKeyRef:
+                name: exercises-config          
+                key: DATABASE_HOST
+
+          - name: POSTGRES_PORT 
+            valueFrom:
+              configMapKeyRef:
+                name: exercises-config          
+                key: DATABASE_PORT
+
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: exercises-config          
+                key: DATABASE_PASSWORD
+
+          - name: POSTGRES_USER
+            valueFrom:
+              configMapKeyRef:
+                name: exercises-config          
+                key: DATABASE_USER
+         
