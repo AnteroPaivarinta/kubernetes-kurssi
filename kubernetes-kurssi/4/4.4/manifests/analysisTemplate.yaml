@@ -1,18 +1,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AnalysisTemplate
 metadata:
-  name: restart-rate
+  name: namespace-cpu-usage
   namespace: exercises
 spec:
   metrics:
-  - name: restart-rate
-    initialDelay: 5m
-    successCondition: result < 2
+  - name: cpu-usage
+    interval: 30s
+    initialDelay: 30s
+    failureLimit: 1
+    successCondition: result < 1.5
     provider:
       prometheus:
         address: http://kube-prometheus-stack-prometheus.prometheus.svc.cluster.local
         query: |
-          scalar(
-            sum(kube_pod_container_status_restarts_total{namespace="exercises", container="ping-pong-app-update"}) -
-            sum(kube_pod_container_status_restarts_total{namespace="exercises", container="ping-pong-app-update"} offset 2m)
+          sum(
+            rate(container_cpu_usage_seconds_total{
+              namespace="exercises",
+              container!=""
+            }[5m])
           )

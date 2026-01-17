@@ -12,6 +12,9 @@ spec:
     canary:
       steps:
       - setWeight: 25
+      - analysis:
+          templates:
+          - templateName: namespace-cpu-usage
       - pause:
           duration: 30s
       - setWeight: 50
@@ -23,20 +26,17 @@ spec:
         app: ping-pong-app-update
     spec:
       containers:
-        - name: ping-pong-app
-          image: anteropaivarinta/ping-pong-app:latest
-          readinessProbe:
-            initialDelaySeconds: 10 # Initial delay until the readiness is tested
-            periodSeconds: 5 # How often to test
-            httpGet:
-               path: /healthz
-               port: 3000
-          livenessProbe:
-            initialDelaySeconds: 20 # Initial delay until the liveness is tested
-            periodSeconds: 5 # How often to test
-            httpGet:
-               path: /healthz
-               port: 3000
-
----
-# the service definition could be put here
+      - name: ping-pong-app
+        image: anteropaivarinta/ping-pong-app:latest
+        readinessProbe:
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          httpGet:
+            path: /healthz
+            port: 3000
+        livenessProbe:
+          initialDelaySeconds: 20
+          periodSeconds: 5
+          httpGet:
+            path: /healthz
+            port: 3000
