@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: ping-pong-app-update-dep
+  name: ping-pong-app
   namespace: exercises
 spec:
   replicas: 4
   selector:
     matchLabels:
-      app: ping-pong-app-update
+      app: ping-pong-app
   strategy:
     canary:
       steps:
@@ -22,8 +22,10 @@ spec:
           duration: 30s
   template:
     metadata:
+      annotations:
+        force-rollout: "test-7"
       labels:
-        app: ping-pong-app-update
+        app: ping-pong-app
     spec:
       containers:
       - name: ping-pong-app
