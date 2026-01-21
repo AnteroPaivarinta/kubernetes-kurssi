@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-output-app
+  namespace: exercises
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: log-output-app
+  template:
+    metadata:
+      labels:
+        app: log-output-app
+    spec:
+      volumes: # Define volume
+        - name: shared-image
+          persistentVolumeClaim:
+            claimName: image-claim
+        - name: config-volume
+          configMap:
+            name: exercises-config
+            items:
+            - key: "information.txt"
+              path: "information.txt"
+      initContainers:
+        - name: init-files
+          image: busybox
+          command: ["sh", "-c", "mkdir -p /usr/src/app/files"]
+          volumeMounts:
+            - name: shared-image
+              mountPath: /usr/src/app/files
+      containers:
+        - name: log-output-one
+          image: anteropaivarinta/log-output-app-one:latest
+          volumeMounts: # Mount volume
+          - name: shared-image
+            mountPath: /usr/src/app/files
+        - name: log-output-two
+          image: anteropaivarinta/log-output-app-two:latest
+          readinessProbe:
+            initialDelaySeconds: 10 
+            periodSeconds: 5 
+            httpGet:
+               path: /
+               port: 3000
+          
+          volumeMounts: 
+          - name: shared-image
+            mountPath: /usr/src/app/files
+          - name: config-volume
+            mountPath: etc/config
+          env:
+            - name: MESSAGE 
+              valueFrom:
+                configMapKeyRef:
+                  name: exercises-config          
+                  key: MESSAGE
+
+            - name: PORT 
+              valueFrom:
+                configMapKeyRef:
+                  name: exercises-config          
+                  key: PORT
+            - name: PINGS_PATH 
+              valueFrom:
+                configMapKeyRef:
+                  name: exercises-config          
+                  key: PINGS_PATH
+          
+
+         
+          
