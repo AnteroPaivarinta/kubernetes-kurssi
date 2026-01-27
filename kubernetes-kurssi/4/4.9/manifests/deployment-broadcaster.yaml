@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: broadcaster-dep
+spec:
+  replicas: 6  
+  selector:
+    matchLabels:
+      app: broadcaster
+  template:
+    metadata:
+      labels:
+        app: broadcaster
+    spec:
+      containers:
+        - name: broadcaster
+          image: anteropaivarinta/broadcaster:latest
+          env:
+            - name: DISCORD_TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  name: exercises-config          
+                  key: DISCORD_TOKEN
+            - name: NATS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: exercises-config          
+                  key: NATS_URL

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: exercises-config
+  namespace: project
+data:
+  MESSAGE: "hello123"
+  PORT: "3001"
+  DATABASE_PORT: "5432"
+  DATABASE_PASSWORD: "example"
+  DATABASE: "postgres"
+  DATABASE_HOST: "postgres-svc"
+  DATABASE_USER: "postgres"
+  NATS_URL: "nats-service:4222"
+  DISCORD_TOKEN: "https://discordapp.com/api/webhooks/1462725961601646614/ARdT319EZIT4hB7eX88wex1LdtncKeaiaTBEULQk5Y83rLak2Tot5j5r8jBpPccXpTVw"
+  information.txt: |
+    this text is from file

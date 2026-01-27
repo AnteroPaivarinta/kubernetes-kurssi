@@ -34,6 +34,8 @@ done
 
 
 kubectl apply -f manifests 
+kubectl port-forward -n kube-prometheus-stack svc/kube-prometheus-stack-prometheus 9090:9090
+
 
 
 
