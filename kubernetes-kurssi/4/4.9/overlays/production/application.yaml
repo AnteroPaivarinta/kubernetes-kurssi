@@ -7,18 +7,18 @@ spec:
   generators:
     - git:
         repoURL: https://github.com/AnteroPaivarinta/kubernetes-kurssi
-        revision: HEAD
-        tags:
-          - '*'
+        revision: main
+        directories:
+          - path: 4/4.9/overlays/production
   template:
     metadata:
-      name: myapp-production-{{tag}}
+      name: myapp-production
     spec:
       project: default
       source:
         repoURL: https://github.com/AnteroPaivarinta/kubernetes-kurssi
-        targetRevision: '{{tag}}'
-        path: /kubernetes-kurssi/4/4.9/overlays/production
+        targetRevision: main
+        path: 4/4.9/overlays/production
       destination:
         server: https://kubernetes.default.svc
         namespace: myapp-production

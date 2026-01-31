@@ -2,17 +2,17 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: myapp-staging
-  namespace: myapp-staging
+  namespace: argocd          # yleensä ArgoCD namespace
 spec:
   project: default
   source:
     repoURL: https://github.com/AnteroPaivarinta/kubernetes-kurssi
-    path: /kubernetes-kurssi/4/4.9/overlays/staging
-    targetRevision: HEAD
+    path: 4/4.9/overlays/staging
+    targetRevision: main    # deploy jokainen commit main branchiin
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: myapp-staging   # erillinen namespace stagingille
   syncPolicy:
     automated:
-      prune: <strong>true</strong>
-      selfHeal: <strong>true</strong>
+      prune: true
+      selfHeal: true
