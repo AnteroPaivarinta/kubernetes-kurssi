@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/AnteroPaivarinta/kubernetes-kurssi
-    path: 4/4.9/overlays/staging
+    path: /kubernetes-kurssi/4/4.9/overlays/staging
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
