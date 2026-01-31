@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp-staging
+  namespace: myapp-staging
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/AnteroPaivarinta/kubernetes-kurssi
+    path: 4/4.9/overlays/staging
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: <strong>true</strong>
+      selfHeal: <strong>true</strong>

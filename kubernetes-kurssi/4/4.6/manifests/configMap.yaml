@@ -12,6 +12,6 @@ data:
   DATABASE_HOST: "postgres-svc"
   DATABASE_USER: "postgres"
   NATS_URL: "nats-service:4222"
-  DISCORD_TOKEN: "https://discordapp.com/api/webhooks/1462725961601646614/ARdT319EZIT4hB7eX88wex1LdtncKeaiaTBEULQk5Y83rLak2Tot5j5r8jBpPccXpTVw"
+  DISCORD_TOKEN: "https://discordapp.com/api/webhooks/1466844511618727937/rLAr13-V7PLJgqAlxXQPpw3SGcWL1SKh6D6hDDK65x6xbGlc5_W0W7qjYNm9HkWMc2W7"
   information.txt: |
     this text is from file

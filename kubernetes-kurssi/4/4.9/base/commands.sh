@@ -51,4 +51,8 @@ cd ..
 kubectl apply -f namespace.yaml
 kubectl apply -f manifests --namespace=project
 
+cd ../overlays
+
+kubectl apply -n argocd -f application.yaml
+
 
