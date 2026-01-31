@@ -1,0 +1,35 @@
+name: Deploy to Kubernetes
+
+on:
+  push:
+    branches: [ "main" ]
+    tags: [ "v*" ] 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_type == 'tag' && 'production' || 'staging' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set Environment Variables
+        run: |
+          if [[ "${{ github.ref_type }}" == "tag" ]]; then
+            echo "NAMESPACE=production" >> $GITHUB_ENV
+            echo "ENABLE_BACKUP=true" >> $GITHUB_ENV
+            echo "FORWARD_MESSAGES=true" >> $GITHUB_ENV
+          else
+            echo "NAMESPACE=staging" >> $GITHUB_ENV
+            echo "ENABLE_BACKUP=false" >> $GITHUB_ENV
+            echo "FORWARD_MESSAGES=false" >> $GITHUB_ENV
+          fi
+      - name: Deploy to Kubernetes namespace
+        run: |
+          echo "Deploying to namespace: $NAMESPACE"
+          echo "Backup status: $ENABLE_BACKUP"
+          echo "Broadcaster forward: $FORWARD_MESSAGES"
+          
+          # Tässä kohtaa ajaisit varsinaiset deploy-komennot, esim:
+          # kubectl apply -f k8s/ -n $NAMESPACE
