@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: myapp-production
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/AnteroPaivarinta/kubernetes-kurssi
+        revision: HEAD
+        tags:
+          - '*'
+  template:
+    metadata:
+      name: myapp-production-{{tag}}
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/AnteroPaivarinta/kubernetes-kurssi
+        targetRevision: '{{tag}}'
+        path: 4/4.9/overlays/prod
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: myapp-production
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
