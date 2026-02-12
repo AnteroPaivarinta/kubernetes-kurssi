@@ -5,11 +5,11 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-const logFile = path.join('/usr/src/app/files', 'log.txt'); // oikea polku kontissa
+const logFile = path.join('/usr/src/app/files', 'log.txt'); 
 
 app.get('/status', (req, res) => {
     try {
-        const data = fs.readFileSync(logFile, 'utf8'); // synkroninen lukeminen
+        const data = fs.readFileSync(logFile, 'utf8'); 
         res.send(data);
     } catch (err) {
         console.error('Tiedoston lukeminen epäonnistui:', err);

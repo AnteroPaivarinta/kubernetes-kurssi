@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require("path");
 require('dotenv').config(); 
-const FileType = require('file-type'); // <-- lisää tämä
+const FileType = require('file-type'); 
 
 const fs = require('fs');
 
@@ -12,7 +12,6 @@ const URL = "https://picsum.photos/1200";
 
 
 async function savePhotoFromAPI () {
-    console.log("HELLO?")
     const response = await fetch(URL);
     const arrayBuffer = await response.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);

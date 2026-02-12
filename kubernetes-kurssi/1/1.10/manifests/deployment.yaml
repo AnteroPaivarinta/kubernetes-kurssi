@@ -12,17 +12,17 @@ spec:
       labels:
         app: log-output-app
     spec:
-      volumes: # Define volume
+      volumes: 
         - name: shared-image
           emptyDir: {}
       containers:
         - name: log-output-one
           image: anteropaivarinta/log-output-app-one:latest
-          volumeMounts: # Mount volume
+          volumeMounts: 
           - name: shared-image
             mountPath: /usr/src/app/files
         - name: log-output-two
           image: anteropaivarinta/log-output-app-two:latest
-          volumeMounts: # Mount volume
+          volumeMounts: 
           - name: shared-image
             mountPath: /usr/src/app/files

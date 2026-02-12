@@ -30,6 +30,3 @@ jobs:
           echo "Deploying to namespace: $NAMESPACE"
           echo "Backup status: $ENABLE_BACKUP"
           echo "Broadcaster forward: $FORWARD_MESSAGES"
-          
-          # Tässä kohtaa ajaisit varsinaiset deploy-komennot, esim:
-          # kubectl apply -f k8s/ -n $NAMESPACE

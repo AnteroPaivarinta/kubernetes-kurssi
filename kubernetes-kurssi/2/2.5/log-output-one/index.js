@@ -33,5 +33,4 @@ setInterval(logStringWithTimestamp, 5000);
 // Optionally log immediately on start
 logStringWithTimestamp();
 
-// -----------------------
-// Add /status endpoint
+

@@ -16,7 +16,6 @@ app.get('/pings', async(req, res) => {
   res.send(a);
 });
 
-// Start the server
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });

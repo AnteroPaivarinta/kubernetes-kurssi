@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require("path");
 require('dotenv').config(); 
-const FileType = require('file-type'); // <-- lisää tämä
+const FileType = require('file-type'); 
 
 const fs = require('fs');
 
